@@ -7,11 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import amalgamos.service.rolldicegenerator.domain.Dice;
 import amalgamos.service.rolldicegenerator.domain.RollDice;
+import amalgamos.service.rolldicegenerator.service.queue.QueueNotificationInterface;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -19,13 +19,14 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 public class RollDiceService {
 
 	@Autowired
-	private SimpMessagingTemplate simpMessagingTemplate;
+	private QueueNotificationInterface queueService;
+	
 
 	public RollDice generate(RollDice roll) {
 		roll.setJogadas(generateRolls(roll.getFormula()));
 		roll.setFormulaAlterada(convertFormula(roll.getFormula(), roll.getJogadas()));
 		roll.setResultadoFinal(parseValorFinal(roll.getFormulaAlterada()));
-		simpMessagingTemplate.convertAndSend("/topic/rolls", roll);
+		queueService.publishRoll(roll);
 		return roll;
 	}
 	
