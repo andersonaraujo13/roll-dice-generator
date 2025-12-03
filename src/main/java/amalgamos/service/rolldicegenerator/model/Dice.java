@@ -1,4 +1,4 @@
-package amalgamos.service.rolldicegenerator.domain;
+package amalgamos.service.rolldicegenerator.model;
 
 import java.util.List;
 

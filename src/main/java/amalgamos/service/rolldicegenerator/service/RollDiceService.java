@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import amalgamos.service.rolldicegenerator.domain.Dice;
-import amalgamos.service.rolldicegenerator.domain.RollDice;
+import amalgamos.service.rolldicegenerator.model.Dice;
+import amalgamos.service.rolldicegenerator.model.RollDice;
 import amalgamos.service.rolldicegenerator.service.queue.QueueNotificationInterface;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -21,7 +21,6 @@ public class RollDiceService {
 	@Autowired
 	private QueueNotificationInterface queueService;
 	
-
 	public RollDice generate(RollDice roll) {
 		roll.setJogadas(generateRolls(roll.getFormula()));
 		roll.setFormulaAlterada(convertFormula(roll.getFormula(), roll.getJogadas()));
@@ -49,7 +48,7 @@ public class RollDiceService {
 	
 	private List<Dice> generateRolls(String formula){
         Pattern pattern = Pattern.compile("([0-9]+D[0-9]+)");
-        Matcher matcher = pattern.matcher(formula);
+        Matcher matcher = pattern.matcher(formula.toUpperCase());
         List<Dice> jogadas = new ArrayList<Dice>();
         
         while (matcher.find()) {

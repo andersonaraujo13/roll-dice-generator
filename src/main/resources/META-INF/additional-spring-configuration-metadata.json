@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "application.title",
+    "type": "java.lang.String",
+    "description": "Titulo da aplicação usado no banner, pode ser usado em outros lugares."
+  },
+  {
+    "name": "application.version",
+    "type": "java.lang.String",
+    "description": "Versão da aplicação usado no banner, pode ser usado em outros lugares."
+  },
+  {
+    "name": "application.redis.url",
+    "type": "java.lang.String",
+    "description": "A description for 'application.redis.url'"
+  }
+]}
